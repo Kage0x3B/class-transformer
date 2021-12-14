@@ -197,6 +197,7 @@ export class TransformOperationExecutor {
             targetType as Function,
             valueKey,
             value,
+            newValue,
             this.transformationType
           )
         ) {
@@ -400,6 +401,7 @@ export class TransformOperationExecutor {
     target: Function,
     key: string,
     obj: any,
+    resultingObject: any,
     transformationType: TransformationType
   ): boolean {
     let metadatas = defaultMetadataStorage.findOverwriteTransformMetadatas(target, key);
@@ -436,7 +438,13 @@ export class TransformOperationExecutor {
       );
     }
 
-    obj[key] = metadatas[0].transformFn({ value, key, obj, type: transformationType, options: this.options });
+    resultingObject[key] = metadatas[0].transformFn({
+      value,
+      key,
+      obj,
+      type: transformationType,
+      options: this.options,
+    });
 
     return true;
   }
