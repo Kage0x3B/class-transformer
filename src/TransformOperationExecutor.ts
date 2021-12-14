@@ -190,6 +190,19 @@ export class TransformOperationExecutor {
           }
         }
 
+        // Try applying overwriting transform decorator and continue if it exists and worked
+        if (
+          this.applyOverwritingTransformation(
+            value[valueKey],
+            targetType as Function,
+            valueKey,
+            value,
+            this.transformationType
+          )
+        ) {
+          continue;
+        }
+
         // get a subvalue
         let subValue: any = undefined;
         if (this.transformationType === TransformationType.PLAIN_TO_CLASS) {
@@ -375,6 +388,57 @@ export class TransformOperationExecutor {
     } else {
       return value;
     }
+  }
+
+  /**
+   * Apply overwriting transform if one exists
+   *
+   * @return true if overwriting transform was applied and further processing for this value should not be executed
+   */
+  private applyOverwritingTransformation(
+    value: any,
+    target: Function,
+    key: string,
+    obj: any,
+    transformationType: TransformationType
+  ): boolean {
+    let metadatas = defaultMetadataStorage.findOverwriteTransformMetadatas(target, key);
+
+    // apply versioning options
+    if (this.options.version !== undefined) {
+      metadatas = metadatas.filter(metadata => {
+        if (!metadata.options) return true;
+
+        return this.checkVersion(metadata.options.since, metadata.options.until);
+      });
+    }
+
+    // apply grouping options
+    if (this.options.groups && this.options.groups.length) {
+      metadatas = metadatas.filter(metadata => {
+        if (!metadata.options) return true;
+
+        return this.checkGroups(metadata.options.groups);
+      });
+    } else {
+      metadatas = metadatas.filter(metadata => {
+        return !metadata.options || !metadata.options.groups || !metadata.options.groups.length;
+      });
+    }
+
+    if (!metadatas.length) {
+      return false;
+    }
+
+    if (metadatas.length > 1) {
+      console.warn(
+        `More than one overwriting transform found while processing ${key}, are the decorator filter options correct?`
+      );
+    }
+
+    obj[key] = metadatas[0].transformFn({ value, key, obj, type: transformationType, options: this.options });
+
+    return true;
   }
 
   private applyCustomTransformations(
