@@ -1,5 +1,6 @@
-import { TypeMetadata, ExposeMetadata, ExcludeMetadata, TransformMetadata } from './interfaces';
+import { ExcludeMetadata, ExposeMetadata, TransformMetadata, TypeMetadata } from './interfaces';
 import { TransformationType } from './enums';
+import { OverwriteTransformMetadata } from './interfaces/metadata/overwrite-transform-metadata.interface';
 
 /**
  * Storage all library metadata.
@@ -11,6 +12,7 @@ export class MetadataStorage {
 
   private _typeMetadatas = new Map<Function, Map<string, TypeMetadata>>();
   private _transformMetadatas = new Map<Function, Map<string, TransformMetadata[]>>();
+  private _overwriteTransformMetadatas = new Map<Function, Map<string, OverwriteTransformMetadata[]>>();
   private _exposeMetadatas = new Map<Function, Map<string, ExposeMetadata>>();
   private _excludeMetadatas = new Map<Function, Map<string, ExcludeMetadata>>();
   private _ancestorsMap = new Map<Function, Function[]>();
@@ -34,6 +36,16 @@ export class MetadataStorage {
       this._transformMetadatas.get(metadata.target).set(metadata.propertyName, []);
     }
     this._transformMetadatas.get(metadata.target).get(metadata.propertyName).push(metadata);
+  }
+
+  addOverwriteTransformMetadata(metadata: OverwriteTransformMetadata): void {
+    if (!this._overwriteTransformMetadatas.has(metadata.target)) {
+      this._overwriteTransformMetadatas.set(metadata.target, new Map<string, TransformMetadata[]>());
+    }
+    if (!this._overwriteTransformMetadatas.get(metadata.target).has(metadata.propertyName)) {
+      this._overwriteTransformMetadatas.get(metadata.target).set(metadata.propertyName, []);
+    }
+    this._overwriteTransformMetadatas.get(metadata.target).get(metadata.propertyName).push(metadata);
   }
 
   addExposeMetadata(metadata: ExposeMetadata): void {
@@ -75,6 +87,10 @@ export class MetadataStorage {
 
       return true;
     });
+  }
+
+  findOverwriteTransformMetadatas(target: Function, propertyName: string): OverwriteTransformMetadata[] {
+    return this.findMetadatas(this._overwriteTransformMetadatas, target, propertyName);
   }
 
   findExcludeMetadata(target: Function, propertyName: string): ExcludeMetadata {
