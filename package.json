@@ -37,7 +37,7 @@
     "test": "jest --coverage --verbose",
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand --no-cache --coverage --verbose",
-    "prepublish": "npm run build:es2015 && npm run build:esm5 && npm run build:cjs && npm run build:umd && npm run build:types"
+    "prepare": "npm run build:es2015 && npm run build:esm5 && npm run build:cjs && npm run build:umd && npm run build:types"
   },
   "husky": {
     "hooks": {
