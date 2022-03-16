@@ -2,6 +2,7 @@ import { defaultMetadataStorage } from './storage';
 import { ClassTransformOptions, TypeHelpOptions, TypeMetadata, TypeOptions } from './interfaces';
 import { TransformationType } from './enums';
 import { getGlobal, isPromise } from './utils';
+import { DateTime } from 'luxon';
 
 function instantiateArrayType(arrayType: Function): Array<any> | Set<any> {
   const array = new (arrayType as any)();
@@ -108,6 +109,16 @@ export class TransformOperationExecutor {
     } else if (targetType === Boolean && !isMap) {
       if (value === null || value === undefined) return value;
       return Boolean(value);
+    } else if ((targetType === DateTime || value instanceof DateTime) && !isMap) {
+      if (value === null || value === undefined) return value;
+
+      if (this.transformationType === TransformationType.PLAIN_TO_CLASS) {
+        return DateTime.fromISO(value);
+      } else if (this.transformationType === TransformationType.CLASS_TO_PLAIN) {
+        return value.toISO();
+      } else {
+        return value;
+      }
     } else if ((targetType === Date || value instanceof Date) && !isMap) {
       if (value instanceof Date) {
         return new Date(value.valueOf());
