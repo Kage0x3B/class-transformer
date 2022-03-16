@@ -109,7 +109,7 @@ export class TransformOperationExecutor {
     } else if (targetType === Boolean && !isMap) {
       if (value === null || value === undefined) return value;
       return Boolean(value);
-    } else if ((targetType === DateTime || value instanceof DateTime) && !isMap) {
+    } else if ((targetType === DateTime || DateTime.isDateTime(value)) && !isMap) {
       if (value === null || value === undefined) return value;
 
       if (this.transformationType === TransformationType.PLAIN_TO_CLASS) {
