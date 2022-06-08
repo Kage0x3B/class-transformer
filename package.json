@@ -36,8 +36,7 @@
     "lint:check": "eslint --max-warnings 0 --ext .ts src/",
     "test": "jest --coverage --verbose",
     "test:watch": "jest --watch",
-    "test:ci": "jest --runInBand --no-cache --coverage --verbose",
-    "prepare": "npm run build:es2015 && npm run build:esm5 && npm run build:cjs && npm run build:umd && npm run build:types"
+    "test:ci": "jest --runInBand --no-cache --coverage --verbose"
   },
   "husky": {
     "hooks": {
