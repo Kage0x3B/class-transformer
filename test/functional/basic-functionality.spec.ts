@@ -7,12 +7,12 @@ import {
   plainToInstance,
   plainToClassFromExist,
 } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
+import { getMetadataStorage } from '../../src/storage';
 import { Exclude, Expose, Type, Transform } from '../../src/decorators';
 
 describe('basic functionality', () => {
   it('should convert instance of the given object to plain javascript object and should expose all properties since its a default behaviour', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -94,7 +94,7 @@ describe('basic functionality', () => {
   });
 
   it('should exclude extraneous values if the excludeExtraneousValues option is set to true', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       @Expose() id: number;
@@ -120,7 +120,7 @@ describe('basic functionality', () => {
 
   it('should exclude extraneous values if both excludeExtraneousValues and ignoreDecorators option is set to true', () => {
     // fixes https://github.com/typestack/class-transformer/issues/533
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class ExampleClass {
       @Exclude()
@@ -153,7 +153,7 @@ describe('basic functionality', () => {
   });
 
   it('should exclude all objects marked with @Exclude() decorator', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -232,7 +232,7 @@ describe('basic functionality', () => {
   });
 
   it('should exclude all properties from object if whole class is marked with @Exclude() decorator', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {
@@ -297,7 +297,7 @@ describe('basic functionality', () => {
   });
 
   it('should exclude all properties from object if whole class is marked with @Exclude() decorator, but include properties marked with @Expose() decorator', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {
@@ -380,7 +380,7 @@ describe('basic functionality', () => {
   });
 
   it('should exclude all properties from object if its defined via transformation options, but include properties marked with @Expose() decorator', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -462,7 +462,7 @@ describe('basic functionality', () => {
   });
 
   it('should expose all properties from object if its defined via transformation options, but exclude properties marked with @Exclude() decorator', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -538,7 +538,7 @@ describe('basic functionality', () => {
   });
 
   it('should convert values to specific types if they are set via @Type decorator', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -727,7 +727,7 @@ describe('basic functionality', () => {
   });
 
   it('should transform nested objects too and make sure their decorators are used too', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Photo {
       id: number;
@@ -802,7 +802,7 @@ describe('basic functionality', () => {
   });
 
   it('should transform nested objects too and make sure given type is used instead of automatically guessed one', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Photo {
       id: number;
@@ -859,7 +859,7 @@ describe('basic functionality', () => {
   });
 
   it('should convert given plain object to class instance object', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Photo {
       id: number;
@@ -975,7 +975,7 @@ describe('basic functionality', () => {
   });
 
   it('should expose only properties that match given group', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Photo {
       id: number;
@@ -1250,7 +1250,7 @@ describe('basic functionality', () => {
   });
 
   it('should expose only properties that match given version', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Photo {
       id: number;
@@ -1497,7 +1497,7 @@ describe('basic functionality', () => {
   });
 
   it('should expose method and accessors that have @Expose()', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       firstName: string;
@@ -1546,7 +1546,7 @@ describe('basic functionality', () => {
   });
 
   it('should expose with alternative name if its given', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       @Expose({ name: 'myName' })
@@ -1598,7 +1598,7 @@ describe('basic functionality', () => {
   });
 
   it('should exclude all prefixed properties if prefix is given', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Photo {
       id: number;
@@ -1665,7 +1665,7 @@ describe('basic functionality', () => {
   });
 
   it('should transform array', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;

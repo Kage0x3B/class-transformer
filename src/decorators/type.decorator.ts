@@ -1,4 +1,4 @@
-import { defaultMetadataStorage } from '../storage';
+import { getMetadataStorage } from '../storage';
 import { TypeHelpOptions, TypeOptions } from '../interfaces';
 
 /**
@@ -13,7 +13,7 @@ export function Type(
 ): PropertyDecorator {
   return function (target: any, propertyName: string | Symbol): void {
     const reflectedType = (Reflect as any).getMetadata('design:type', target, propertyName);
-    defaultMetadataStorage.addTypeMetadata({
+    getMetadataStorage().addTypeMetadata({
       target: target.constructor,
       propertyName: propertyName as string,
       reflectedType,

@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { deserialize, deserializeArray, serialize } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
 import { Exclude } from '../../src/decorators';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('serialization and deserialization objects', () => {
   it('should perform serialization and deserialization properly', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       firstName: string;
@@ -94,7 +94,7 @@ describe('serialization and deserialization objects', () => {
   });
 
   it('should successfully deserialize object with unknown nested properties ', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class TestObject {
       prop: string;

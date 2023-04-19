@@ -1,4 +1,4 @@
-import { defaultMetadataStorage } from '../storage';
+import { getMetadataStorage } from '../storage';
 import { ExcludeOptions } from '../interfaces';
 
 /**
@@ -16,7 +16,7 @@ export function Exclude(options: ExcludeOptions = {}): PropertyDecorator & Class
    * decorator only receives one parameter.
    */
   return function (object: any, propertyName?: string | Symbol): void {
-    defaultMetadataStorage.addExcludeMetadata({
+    getMetadataStorage().addExcludeMetadata({
       target: object instanceof Function ? object : object.constructor,
       propertyName: propertyName as string,
       options,

@@ -1,4 +1,4 @@
-import { defaultMetadataStorage } from '../storage';
+import { getMetadataStorage } from '../storage';
 import { TransformFnParams, TransformOptions } from '../interfaces';
 
 /**
@@ -11,7 +11,7 @@ export function Transform(
   options: TransformOptions = {}
 ): PropertyDecorator {
   return function (target: any, propertyName: string | Symbol): void {
-    defaultMetadataStorage.addTransformMetadata({
+    getMetadataStorage().addTransformMetadata({
       target: target.constructor,
       propertyName: propertyName as string,
       transformFn,

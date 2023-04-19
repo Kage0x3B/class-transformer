@@ -1,10 +1,10 @@
 import 'reflect-metadata';
-import { defaultMetadataStorage } from '../../src/storage';
 import { plainToInstance, Type, instanceToPlain } from '../../src';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('promise field', () => {
   it('should transform plan to class with promise field', async () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class PromiseClass {
       promise: Promise<string>;
@@ -37,7 +37,7 @@ describe('promise field', () => {
   });
 
   it('should clone promise result', async () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class PromiseClass {
       promise: Promise<string[]>;

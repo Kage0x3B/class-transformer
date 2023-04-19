@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { plainToInstance } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('Prevent array bomb when used with other packages', () => {
   it('should not convert specially crafted evil JS object to array', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class TestClass {
       readonly categories!: string[];

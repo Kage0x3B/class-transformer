@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { instanceToPlain, plainToInstance, Expose } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
 import { Type } from '../../src/decorators';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('es6 data types', () => {
   it('using Map', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -58,7 +58,7 @@ describe('es6 data types', () => {
   });
 
   it('using Set', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -103,7 +103,7 @@ describe('es6 data types', () => {
   });
 
   it('using Map with objects', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Weapon {
       constructor(public model: string, public range: number) {}
@@ -190,7 +190,7 @@ describe('es6 data types', () => {
   });
 
   it('using Set with objects', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Weapon {
       constructor(public model: string, public range: number) {}
@@ -254,7 +254,7 @@ describe('es6 data types', () => {
   });
 
   it('using Map with objects with Expose', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Weapon {
       constructor(public model: string, public range: number) {}
