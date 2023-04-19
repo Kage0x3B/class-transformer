@@ -1,5 +1,5 @@
-import { defaultMetadataStorage } from '../storage';
 import { ExposeOptions } from '../interfaces';
+import { getMetadataStorage } from '../storage';
 
 /**
  * Marks the given class or property as included. By default the property is included in both
@@ -16,7 +16,7 @@ export function Expose(options: ExposeOptions = {}): PropertyDecorator & ClassDe
    * decorator only receives one parameter.
    */
   return function (object: any, propertyName?: string | Symbol): void {
-    defaultMetadataStorage.addExposeMetadata({
+    getMetadataStorage().addExposeMetadata({
       target: object instanceof Function ? object : object.constructor,
       propertyName: propertyName as string,
       options,

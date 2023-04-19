@@ -1,6 +1,16 @@
 import { MetadataStorage } from './MetadataStorage';
+import { getGlobal } from './utils';
 
 /**
- * Default metadata storage is used as singleton and can be used to storage all metadatas.
+ * Gets metadata storage.
+ * Metadata storage follows the best practices and stores metadata in a global variable.
  */
-export const defaultMetadataStorage = new MetadataStorage();
+export function getMetadataStorage(): MetadataStorage {
+  const global = getGlobal();
+
+  if (!global.classTransformerMetadataStorage) {
+    global.classTransformerMetadataStorage = new MetadataStorage();
+  }
+
+  return global.classTransformerMetadataStorage;
+}

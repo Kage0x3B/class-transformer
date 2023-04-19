@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { instanceToInstance, instanceToPlain, plainToInstance } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
 import { TransformOperationExecutor } from '../../src/TransformOperationExecutor';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('circular reference problem', () => {
   it('should skip circular reference objects in instanceToPlain operation', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Caption {
       text: string;
@@ -72,7 +72,7 @@ describe('circular reference problem', () => {
   });
 
   it('should not skip circular reference objects, but handle it correctly in instanceToInstance operation', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Photo {
       id: number;

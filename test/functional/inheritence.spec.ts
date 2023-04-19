@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { plainToInstance, Transform, Type } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('inheritence', () => {
   it('decorators should work inside a base class', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class Contact {
       @Transform(({ value }) => value.toUpperCase())

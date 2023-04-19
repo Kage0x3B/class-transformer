@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { plainToInstance } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
 import { Expose, Type } from '../../src/decorators';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('implicit type conversion', () => {
   it('should run only when enabled', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class SimpleExample {
       @Expose()
@@ -39,7 +39,7 @@ describe('implicit type conversion', () => {
 });
 
 describe('implicit and explicity type declarations', () => {
-  defaultMetadataStorage.clear();
+  getMetadataStorage().clear();
 
   class Example {
     @Expose()
@@ -79,7 +79,7 @@ describe('implicit and explicity type declarations', () => {
 });
 
 describe('plainToInstance transforms built-in primitive types properly', () => {
-  defaultMetadataStorage.clear();
+  getMetadataStorage().clear();
 
   class Example {
     @Type()

@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { plainToInstance } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
 import { Expose, Transform } from '../../src/decorators';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('applying several transformations', () => {
-  beforeEach(() => defaultMetadataStorage.clear());
-  afterEach(() => defaultMetadataStorage.clear());
+  beforeEach(() => getMetadataStorage().clear());
+  afterEach(() => getMetadataStorage().clear());
 
   it('should keep the order of the applied decorators after several plainToInstance() calls', () => {
     class User {

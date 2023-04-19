@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 import { instanceToPlain, plainToInstance } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
 import { Exclude, Expose } from '../../src/decorators';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('filtering by transformation option', () => {
   it('@Exclude with toPlainOnly set to true then it should be excluded only during instanceToPlain and classToPlainFromExist operations', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -43,7 +43,7 @@ describe('filtering by transformation option', () => {
   });
 
   it('@Exclude with toClassOnly set to true then it should be excluded only during plainToInstance and plainToClassFromExist operations', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -81,7 +81,7 @@ describe('filtering by transformation option', () => {
   });
 
   it('@Expose with toClassOnly set to true then it should be excluded only during instanceToPlain and classToPlainFromExist operations', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {
@@ -122,7 +122,7 @@ describe('filtering by transformation option', () => {
   });
 
   it('@Expose with toPlainOnly set to true then it should be excluded only during instanceToPlain and classToPlainFromExist operations', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {
@@ -163,7 +163,7 @@ describe('filtering by transformation option', () => {
   });
 
   it('should ignore undefined properties when exposeUnsetFields is set to false during class to plain', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {

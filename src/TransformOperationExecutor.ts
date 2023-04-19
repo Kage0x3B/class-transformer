@@ -1,8 +1,8 @@
-import { defaultMetadataStorage } from './storage';
 import { ClassTransformOptions, TypeHelpOptions, TypeMetadata, TypeOptions } from './interfaces';
 import { TransformationType } from './enums';
 import { getGlobal, isPromise } from './utils';
 import { DateTime } from 'luxon';
+import { getMetadataStorage } from './storage';
 
 function instantiateArrayType(arrayType: Function): Array<any> | Set<any> {
   const array = new (arrayType as any)();
@@ -185,7 +185,7 @@ export class TransformOperationExecutor {
           propertyName = key;
         if (!this.options.ignoreDecorators && targetType) {
           if (this.transformationType === TransformationType.PLAIN_TO_CLASS) {
-            const exposeMetadata = defaultMetadataStorage.findExposeMetadataByCustomName(targetType as Function, key);
+            const exposeMetadata = getMetadataStorage().findExposeMetadataByCustomName(targetType as Function, key);
             if (exposeMetadata) {
               propertyName = exposeMetadata.propertyName;
               newValueKey = exposeMetadata.propertyName;
@@ -194,7 +194,7 @@ export class TransformOperationExecutor {
             this.transformationType === TransformationType.CLASS_TO_PLAIN ||
             this.transformationType === TransformationType.CLASS_TO_CLASS
           ) {
-            const exposeMetadata = defaultMetadataStorage.findExposeMetadata(targetType as Function, key);
+            const exposeMetadata = getMetadataStorage().findExposeMetadata(targetType as Function, key);
             if (exposeMetadata && exposeMetadata.options && exposeMetadata.options.name) {
               newValueKey = exposeMetadata.options.name;
             }
@@ -241,7 +241,7 @@ export class TransformOperationExecutor {
         if (targetType && isMap) {
           type = targetType;
         } else if (targetType) {
-          const metadata = defaultMetadataStorage.findTypeMetadata(targetType as Function, propertyName);
+          const metadata = getMetadataStorage().findTypeMetadata(targetType as Function, propertyName);
           if (metadata) {
             const options: TypeHelpOptions = { newObject: newValue, object: value, property: propertyName };
             const newType = metadata.typeFunction ? metadata.typeFunction(options) : metadata.reflectedType;
@@ -415,7 +415,7 @@ export class TransformOperationExecutor {
     resultingObject: any,
     transformationType: TransformationType
   ): boolean {
-    let metadatas = defaultMetadataStorage.findOverwriteTransformMetadatas(target, key);
+    let metadatas = getMetadataStorage().findOverwriteTransformMetadatas(target, key);
 
     // apply versioning options
     if (this.options.version !== undefined) {
@@ -467,7 +467,7 @@ export class TransformOperationExecutor {
     obj: any,
     transformationType: TransformationType
   ): boolean {
-    let metadatas = defaultMetadataStorage.findTransformMetadatas(target, key, this.transformationType);
+    let metadatas = getMetadataStorage().findTransformMetadatas(target, key, this.transformationType);
 
     // apply versioning options
     if (this.options.version !== undefined) {
@@ -505,13 +505,13 @@ export class TransformOperationExecutor {
 
   private getReflectedType(target: Function, propertyName: string): Function | undefined {
     if (!target) return undefined;
-    const meta = defaultMetadataStorage.findTypeMetadata(target, propertyName);
+    const meta = getMetadataStorage().findTypeMetadata(target, propertyName);
     return meta ? meta.reflectedType : undefined;
   }
 
   private getKeys(target: Function, object: Record<string, any>, isMap: boolean): string[] {
     // determine exclusion strategy
-    let strategy = defaultMetadataStorage.getStrategy(target);
+    let strategy = getMetadataStorage().getStrategy(target);
     if (strategy === 'none') strategy = this.options.strategy || 'exposeAll'; // exposeAll is default strategy
 
     // get all keys that need to expose
@@ -534,17 +534,17 @@ export class TransformOperationExecutor {
      * metadata to decide which property is needed, but doesn't apply the decorator effect.
      */
     if (this.options.ignoreDecorators && this.options.excludeExtraneousValues && target) {
-      const exposedProperties = defaultMetadataStorage.getExposedProperties(target, this.transformationType);
-      const excludedProperties = defaultMetadataStorage.getExcludedProperties(target, this.transformationType);
+      const exposedProperties = getMetadataStorage().getExposedProperties(target, this.transformationType);
+      const excludedProperties = getMetadataStorage().getExcludedProperties(target, this.transformationType);
       keys = [...exposedProperties, ...excludedProperties];
     }
 
     if (!this.options.ignoreDecorators && target) {
       // add all exposed to list of keys
-      let exposedProperties = defaultMetadataStorage.getExposedProperties(target, this.transformationType);
+      let exposedProperties = getMetadataStorage().getExposedProperties(target, this.transformationType);
       if (this.transformationType === TransformationType.PLAIN_TO_CLASS) {
         exposedProperties = exposedProperties.map(key => {
-          const exposeMetadata = defaultMetadataStorage.findExposeMetadata(target, key);
+          const exposeMetadata = getMetadataStorage().findExposeMetadata(target, key);
           if (exposeMetadata && exposeMetadata.options && exposeMetadata.options.name) {
             return exposeMetadata.options.name;
           }
@@ -559,7 +559,7 @@ export class TransformOperationExecutor {
       }
 
       // exclude excluded properties
-      const excludedProperties = defaultMetadataStorage.getExcludedProperties(target, this.transformationType);
+      const excludedProperties = getMetadataStorage().getExcludedProperties(target, this.transformationType);
       if (excludedProperties.length > 0) {
         keys = keys.filter(key => {
           return !excludedProperties.includes(key);
@@ -569,7 +569,7 @@ export class TransformOperationExecutor {
       // apply versioning options
       if (this.options.version !== undefined) {
         keys = keys.filter(key => {
-          const exposeMetadata = defaultMetadataStorage.findExposeMetadata(target, key);
+          const exposeMetadata = getMetadataStorage().findExposeMetadata(target, key);
           if (!exposeMetadata || !exposeMetadata.options) return true;
 
           return this.checkVersion(exposeMetadata.options.since, exposeMetadata.options.until);
@@ -579,14 +579,14 @@ export class TransformOperationExecutor {
       // apply grouping options
       if (this.options.groups && this.options.groups.length) {
         keys = keys.filter(key => {
-          const exposeMetadata = defaultMetadataStorage.findExposeMetadata(target, key);
+          const exposeMetadata = getMetadataStorage().findExposeMetadata(target, key);
           if (!exposeMetadata || !exposeMetadata.options) return true;
 
           return this.checkGroups(exposeMetadata.options.groups);
         });
       } else {
         keys = keys.filter(key => {
-          const exposeMetadata = defaultMetadataStorage.findExposeMetadata(target, key);
+          const exposeMetadata = getMetadataStorage().findExposeMetadata(target, key);
           return (
             !exposeMetadata ||
             !exposeMetadata.options ||

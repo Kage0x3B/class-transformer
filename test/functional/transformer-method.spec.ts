@@ -1,5 +1,4 @@
 import 'reflect-metadata';
-import { defaultMetadataStorage } from '../../src/storage';
 import {
   Exclude,
   Expose,
@@ -7,10 +6,11 @@ import {
   TransformInstanceToPlain,
   TransformPlainToInstance,
 } from '../../src/decorators';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('transformer methods decorator', () => {
   it('should expose non configuration properties and return User instance class', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {
@@ -52,7 +52,7 @@ describe('transformer methods decorator', () => {
   });
 
   it('should expose non configuration properties and return User instance class instead of plain object', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {
@@ -93,7 +93,7 @@ describe('transformer methods decorator', () => {
   });
 
   it('should expose non configuration properties', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {
@@ -134,7 +134,7 @@ describe('transformer methods decorator', () => {
   });
 
   it('should expose non configuration properties and properties with specific groups', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {
@@ -180,7 +180,7 @@ describe('transformer methods decorator', () => {
   });
 
   it('should expose non configuration properties with specific version', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     @Exclude()
     class User {

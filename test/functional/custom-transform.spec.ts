@@ -7,13 +7,13 @@ import {
   plainToInstance,
   TransformFnParams,
 } from '../../src/index';
-import { defaultMetadataStorage } from '../../src/storage';
 import { Expose, Transform, Type } from '../../src/decorators';
 import { TransformationType } from '../../src/enums';
+import { getMetadataStorage } from '../../src/storage';
 
 describe('custom transformation decorator', () => {
   it('@Expose decorator with "name" option should work with @Transform decorator', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       @Expose({ name: 'user_name' })
@@ -30,7 +30,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('@Transform decorator logic should be executed depend of toPlainOnly and toClassOnly set', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -68,7 +68,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('versions and groups should work with @Transform decorator too', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     class User {
       id: number;
@@ -122,7 +122,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('@Transform decorator callback should be given correct arguments', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
 
     let keyArg: string;
     let objArg: any;
@@ -172,7 +172,7 @@ describe('custom transformation decorator', () => {
 
   let model: any;
   it('should serialize json into model instance of class Person', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       const json = {
         name: 'John Doe',
@@ -224,7 +224,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should serialize json into model instance of class Person with different possibilities for type of one property (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       const json = {
         name: 'John Doe',
@@ -275,7 +275,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should serialize json into model instance of class Person with different types in array (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       const json = {
         name: 'John Doe',
@@ -330,7 +330,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should serialize json into model instance of class Person with different possibilities for type of one property AND keeps discriminator property (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       const json = {
         name: 'John Doe',
@@ -380,7 +380,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should serialize json into model instance of class Person with different types in array AND keeps discriminator property (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       const json = {
         name: 'John Doe',
@@ -436,7 +436,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should deserialize class Person into json with different possibilities for type of one property (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       abstract class Hobby {
         public name: string;
@@ -484,7 +484,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should deserialize class Person into json with different types in array (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       abstract class Hobby {
         public name: string;
@@ -538,7 +538,7 @@ describe('custom transformation decorator', () => {
    * test-case for issue #520
    */
   it('should deserialize undefined union type to undefined', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       abstract class Hobby {
         public name: string;
@@ -589,7 +589,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should transform class Person into class OtherPerson with different possibilities for type of one property (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       abstract class Hobby {
         public name: string;
@@ -637,7 +637,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should transform class Person into class OtherPerson with different types in array (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       abstract class Hobby {
         public name: string;
@@ -688,7 +688,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should serialize json into model instance of class Person with different possibilities for type of one property AND uses default as fallback (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       const json = {
         name: 'John Doe',
@@ -733,7 +733,7 @@ describe('custom transformation decorator', () => {
   });
 
   it('should serialize json into model instance of class Person with different types in array AND uses default as fallback (polymorphism)', () => {
-    defaultMetadataStorage.clear();
+    getMetadataStorage().clear();
     expect(() => {
       const json = {
         name: 'John Doe',
