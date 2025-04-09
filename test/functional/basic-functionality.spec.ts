@@ -1664,6 +1664,55 @@ describe('basic functionality', () => {
     expect(transformedUser).toEqual(likeUser);
   });
 
+  it('should expose inherited method and accessors that have @Expose()', () => {
+    class User {
+      firstName: string;
+      lastName: string;
+
+      @Expose()
+      get name() {
+        return this.firstName + ' ' + this.lastName;
+      }
+
+      @Expose()
+      getName() {
+        return this.firstName + ' ' + this.lastName;
+      }
+    }
+    class Programmer extends User {
+      language: string;
+    }
+
+    const programmer = new Programmer();
+    programmer.firstName = 'Umed';
+    programmer.lastName = 'Khudoiberdiev';
+    programmer.language = 'en';
+
+    const fromPlainProgrammer = {
+      firstName: 'Umed',
+      lastName: 'Khudoiberdiev',
+      language: 'en',
+    };
+
+    const plainProgrammer: any = instanceToPlain(programmer);
+    expect(plainProgrammer).not.toBeInstanceOf(Programmer);
+    expect(plainProgrammer).toEqual({
+      firstName: 'Umed',
+      lastName: 'Khudoiberdiev',
+      language: 'en',
+      name: 'Umed Khudoiberdiev',
+      getName: 'Umed Khudoiberdiev',
+    });
+
+    const transformedProgrammer = plainToInstance(Programmer, fromPlainProgrammer);
+    expect(transformedProgrammer).toBeInstanceOf(Programmer);
+    const likeProgrammer = new Programmer();
+    likeProgrammer.firstName = 'Umed';
+    likeProgrammer.lastName = 'Khudoiberdiev';
+    likeProgrammer.language = 'en';
+    expect(transformedProgrammer).toEqual(likeProgrammer);
+  });
+
   it('should transform array', () => {
     getMetadataStorage().clear();
 
