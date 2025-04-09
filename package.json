@@ -1,6 +1,6 @@
 {
   "name": "@kage0x3b/class-transformer",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "Proper decorator-based transformation / serialization / deserialization of plain javascript objects to class constructors",
   "author": "TypeStack contributors",
   "contributors": [
@@ -13,10 +13,10 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "sideEffects": false,
-  "main": "./cjs/index.js",
-  "module": "./esm5/index.js",
-  "es2015": "./esm2015/index.js",
-  "typings": "./types/index.d.ts",
+  "main": "./build/cjs/index.js",
+  "module": "./build/esm5/index.js",
+  "es2015": "./build/esm2015/index.js",
+  "typings": "./build/types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Kage0x3B/class-transformer.git"
@@ -28,6 +28,10 @@
     "typescript",
     "object-to-class",
     "typescript-serializer"
+  ],
+  "files": [
+    "package.json",
+    "build"
   ],
   "scripts": {
     "build": "npm run build:cjs",
