@@ -1,6 +1,5 @@
-import { ExcludeMetadata, ExposeMetadata, TransformMetadata, TypeMetadata } from './interfaces';
-import { TransformationType } from './enums';
-import { OverwriteTransformMetadata } from './interfaces/metadata/overwrite-transform-metadata.interface';
+import { ExcludeMetadata, ExposeMetadata, OverwriteTransformMetadata, TransformMetadata, TypeMetadata } from './interfaces/index.js';
+import { TransformationType } from './enums/index.js';
 
 /**
  * Storage all library metadata.

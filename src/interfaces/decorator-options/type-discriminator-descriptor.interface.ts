@@ -1,4 +1,4 @@
-import { ClassConstructor } from '..';
+import { ClassConstructor } from '../index.js';
 
 /**
  * Discriminator object containing the type information to select a proper type

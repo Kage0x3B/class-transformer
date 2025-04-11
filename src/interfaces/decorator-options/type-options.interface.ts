@@ -1,4 +1,4 @@
-import { DiscriminatorDescriptor } from './type-discriminator-descriptor.interface';
+import { DiscriminatorDescriptor } from './type-discriminator-descriptor.interface.js';
 
 /**
  * Possible transformation options for the @Type decorator.

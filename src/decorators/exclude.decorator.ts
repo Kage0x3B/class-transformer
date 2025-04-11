@@ -1,5 +1,5 @@
-import { getMetadataStorage } from '../storage';
-import { ExcludeOptions } from '../interfaces';
+import { getMetadataStorage } from '../storage.js';
+import { ExcludeOptions } from '../interfaces/index.js';
 
 /**
  * Marks the given class or property as excluded. By default the property is excluded in both

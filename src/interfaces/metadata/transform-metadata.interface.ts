@@ -1,5 +1,5 @@
-import { TransformOptions } from '..';
-import { TransformFnParams } from './transform-fn-params.interface';
+import { TransformOptions } from '../index.js';
+import { TransformFnParams } from './transform-fn-params.interface.js';
 
 /**
  * This object represents metadata assigned to a property via the @Transform decorator.

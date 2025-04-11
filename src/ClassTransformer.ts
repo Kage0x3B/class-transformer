@@ -1,8 +1,8 @@
-import { ClassTransformOptions } from './interfaces';
-import { TransformOperationExecutor } from './TransformOperationExecutor';
-import { TransformationType } from './enums';
-import { ClassConstructor } from './interfaces';
-import { defaultOptions } from './constants/default-options.constant';
+import { ClassTransformOptions } from './interfaces/index.js';
+import { TransformOperationExecutor } from './TransformOperationExecutor.js';
+import { TransformationType } from './enums/index.js';
+import { ClassConstructor } from './interfaces/index.js';
+import { defaultOptions } from './constants/default-options.constant.js';
 
 export class ClassTransformer {
   // -------------------------------------------------------------------------

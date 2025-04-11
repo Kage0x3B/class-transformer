@@ -1,5 +1,5 @@
-import { MetadataStorage } from './MetadataStorage';
-import { getGlobal } from './utils';
+import { MetadataStorage } from './MetadataStorage.js';
+import { getGlobal } from './utils/index.js';
 
 /**
  * Gets metadata storage.
@@ -14,3 +14,5 @@ export function getMetadataStorage(): MetadataStorage {
 
   return global.classTransformerMetadataStorage;
 }
+
+export const defaultMetadataStorage = getMetadataStorage();

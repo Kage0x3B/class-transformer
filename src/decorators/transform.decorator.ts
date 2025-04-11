@@ -1,5 +1,5 @@
-import { getMetadataStorage } from '../storage';
-import { TransformFnParams, TransformOptions } from '../interfaces';
+import { getMetadataStorage } from '../storage.js';
+import { TransformFnParams, TransformOptions } from '../interfaces/index.js';
 
 /**
  * Defines a custom logic for value transformation.

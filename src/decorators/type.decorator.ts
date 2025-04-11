@@ -1,5 +1,5 @@
-import { getMetadataStorage } from '../storage';
-import { TypeHelpOptions, TypeOptions } from '../interfaces';
+import { getMetadataStorage } from '../storage.js';
+import { TypeHelpOptions, TypeOptions } from '../interfaces/index.js';
 
 /**
  * Specifies a type of the property.

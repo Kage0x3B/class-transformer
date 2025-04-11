@@ -1,5 +1,5 @@
-import { TransformationType } from '../../enums';
-import { ClassTransformOptions } from '../class-transformer-options.interface';
+import { TransformationType } from '../../enums/index.js';
+import { ClassTransformOptions } from '../class-transformer-options.interface.js';
 
 export interface TransformFnParams {
   value: any;

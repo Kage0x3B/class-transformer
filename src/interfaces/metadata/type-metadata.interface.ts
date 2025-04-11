@@ -1,4 +1,4 @@
-import { TypeHelpOptions, TypeOptions } from '..';
+import { TypeHelpOptions, TypeOptions } from '../index.js';
 
 /**
  * This object represents metadata assigned to a property via the @Type decorator.

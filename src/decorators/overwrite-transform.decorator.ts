@@ -1,6 +1,5 @@
-import { getMetadataStorage } from '../storage';
-import { TransformFnParams } from '../interfaces';
-import { OverwriteTransformOptions } from '../interfaces/decorator-options/overwrite-transform-options.interface';
+import { getMetadataStorage } from '../storage.js';
+import { OverwriteTransformOptions, TransformFnParams } from '../interfaces/index.js';
 
 /**
  * Takes over value transformation, skips all other transformation for this value.

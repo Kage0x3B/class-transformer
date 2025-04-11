@@ -1,5 +1,5 @@
-import { ExposeOptions } from '../interfaces';
-import { getMetadataStorage } from '../storage';
+import { ExposeOptions } from '../interfaces/index.js';
+import { getMetadataStorage } from '../storage.js';
 
 /**
  * Marks the given class or property as included. By default the property is included in both

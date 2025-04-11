@@ -1,5 +1,5 @@
-import { TransformFnParams } from './transform-fn-params.interface';
-import { OverwriteTransformOptions } from '../decorator-options/overwrite-transform-options.interface';
+import { TransformFnParams } from './transform-fn-params.interface.js';
+import { OverwriteTransformOptions } from '../decorator-options/overwrite-transform-options.interface.js';
 
 /**
  * This object represents metadata assigned to a property via the @Transform decorator.

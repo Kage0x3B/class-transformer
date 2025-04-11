@@ -1,4 +1,4 @@
-import { ExposeOptions } from '..';
+import { ExposeOptions } from '../index.js';
 
 /**
  * This object represents metadata assigned to a property via the @Expose decorator.

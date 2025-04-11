@@ -1,5 +1,5 @@
-import { ClassTransformer } from '../ClassTransformer';
-import { ClassTransformOptions } from '../interfaces';
+import { ClassTransformer } from '../ClassTransformer.js';
+import { ClassTransformOptions } from '../interfaces/index.js';
 
 /**
  * Return the class instance only with the exposed properties.

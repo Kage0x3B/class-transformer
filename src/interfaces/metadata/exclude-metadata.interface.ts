@@ -1,4 +1,4 @@
-import { ExcludeOptions } from '..';
+import { ExcludeOptions } from '../index.js';
 
 /**
  * This object represents metadata assigned to a property via the @Exclude decorator.

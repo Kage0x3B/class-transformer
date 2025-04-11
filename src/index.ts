@@ -1,11 +1,11 @@
-import { ClassTransformer } from './ClassTransformer';
-import { ClassConstructor, ClassTransformOptions } from './interfaces';
+import { ClassTransformer } from './ClassTransformer.js';
+import { ClassConstructor, ClassTransformOptions } from './interfaces/index.js';
 
-export { ClassTransformer } from './ClassTransformer';
-export * from './decorators';
-export * from './interfaces';
-export * from './enums';
-export { getMetadataStorage } from './storage';
+export { ClassTransformer } from './ClassTransformer.js';
+export * from './decorators/index.js';
+export * from './interfaces/index.js';
+export * from './enums/index.js';
+export { getMetadataStorage } from './storage.js';
 
 const classTransformer = new ClassTransformer();
 

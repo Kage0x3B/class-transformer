@@ -1,4 +1,4 @@
-import { TargetMap } from './target-map.interface';
+import { TargetMap } from './target-map.interface.js';
 
 /**
  * Options to be passed during transformation.

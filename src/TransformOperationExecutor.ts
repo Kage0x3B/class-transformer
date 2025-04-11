@@ -1,8 +1,8 @@
-import { ClassTransformOptions, TypeHelpOptions, TypeMetadata, TypeOptions } from './interfaces';
-import { TransformationType } from './enums';
-import { getGlobal, isPromise } from './utils';
+import { ClassTransformOptions, TypeHelpOptions, TypeMetadata, TypeOptions } from './interfaces/index.js';
+import { TransformationType } from './enums/index.js';
+import { getGlobal, isPromise } from './utils/index.js';
 import { DateTime } from 'luxon';
-import { getMetadataStorage } from './storage';
+import { getMetadataStorage } from './storage.js';
 
 function instantiateArrayType(arrayType: Function): Array<any> | Set<any> {
   const array = new (arrayType as any)();
