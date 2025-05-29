@@ -113,9 +113,9 @@ export class TransformOperationExecutor {
       if (value === null || value === undefined) return value;
 
       if (this.transformationType === TransformationType.PLAIN_TO_CLASS) {
-        return DateTime.fromISO(value);
+        return typeof value === 'string' ? DateTime.fromISO(value) : value;
       } else if (this.transformationType === TransformationType.CLASS_TO_PLAIN) {
-        return value.toISO();
+        return DateTime.isDateTime(value) ? value.toISO() : value instanceof Date ? DateTime.fromJSDate(value).toISO() : value;
       } else {
         return value;
       }
