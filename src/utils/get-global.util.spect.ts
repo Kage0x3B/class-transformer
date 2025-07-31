@@ -1,4 +1,4 @@
-import { getGlobal } from '.';
+import { getGlobal } from './index.js';
 
 describe('getGlobal()', () => {
   it('should return true if Buffer is present in globalThis', () => {

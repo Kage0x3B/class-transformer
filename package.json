@@ -1,6 +1,6 @@
 {
   "name": "@kage0x3b/class-transformer",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Proper decorator-based transformation / serialization / deserialization of plain javascript objects to class constructors",
   "author": "TypeStack contributors",
   "type": "module",
@@ -19,13 +19,11 @@
     ".": {
       "types": "./build/types/index.d.ts",
       "import": "./build/esm2015/index.js",
-      "require": "./build/cjs/storage.js",
       "default": "./build/esm2015/index.js"
     },
     "./storage": {
       "types": "./build/types/storage.d.ts",
       "import": "./build/esm2015/storage.js",
-      "require": "./build/cjs/storage.js",
       "default": "./build/esm2015/storage.js"
     }
   },
@@ -56,7 +54,7 @@
     "build"
   ],
   "scripts": {
-    "build": "pnpm build:clean && pnpm build:cjs && pnpm build:es2015 && pnpm build:types",
+    "build": "pnpm build:clean && pnpm build:es2015 && pnpm build:types",
     "build:clean": "rimraf build",
     "build:es2015": "tsc --project tsconfig.prod.esm2015.json",
     "build:esm5": "tsc --project tsconfig.prod.esm5.json",
